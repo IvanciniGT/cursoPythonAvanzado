@@ -88,7 +88,10 @@ def contar(nombre,maximo,siesta):
         print("soy el contador: "+nombre+". Voy por el numero: " + str(numero))
         time.sleep(siesta) # Esto se lo digo a quién?
 
-hilo_paralelo=Thread(  target= lambda: contar("A",10, 1)   )
+
+hilo_paralelo=Thread(  target = lambda: contar("A",10, 1)   )
 hilo_paralelo.start()
+
+
 contar("B",6, 2)
 # main y hilo_paralelo
