@@ -18,4 +18,7 @@ class PoolEjecutores:
         self.trabajos_pendientes.append(trabajo)
     
     def waitForPending(self):
+        Ejecutor.noEspereisMas()
+        for ejecutor in self.lista_ejecutors:
+            ejecutor.join()
         

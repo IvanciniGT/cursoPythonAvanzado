@@ -11,11 +11,11 @@ mi_pool_de_ejecutores=PoolEjecutores(5, 1)
 mi_pool_de_ejecutores.start()
 
 for numero in range(0,20):
-    mi_pool_de_ejecutores.nuevoTrabajo(lambda : unTrabajoEstupido(numero))
+    mi_pool_de_ejecutores.nuevoTrabajo((lambda numero: lambda: unTrabajoEstupido(numero))(numero))
 
-time.sleep(20)
-for numero in range(0,20):
-    mi_pool_de_ejecutores.nuevoTrabajo(lambda : unTrabajoEstupido(numero))
+#time.sleep(20)
+#for numero in range(0,20):
+#    mi_pool_de_ejecutores.nuevoTrabajo((lambda numero: lambda: unTrabajoEstupido(numero))(numero))
 
 mi_pool_de_ejecutores.waitForPending()
 print("Ya acabó")

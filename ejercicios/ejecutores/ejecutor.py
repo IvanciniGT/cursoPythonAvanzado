@@ -3,6 +3,8 @@ import time
 
 class Ejecutor (Thread):
     
+    cuando_no_haya_mas_para=False
+    
     def __init__(self, nombre, trabajos_pendientes,tiempo_espera):
         super().__init__()
         self.nombre=nombre
@@ -22,5 +24,11 @@ class Ejecutor (Thread):
                 # Si no lo hay? ... 
                 # tendre que esperar un POCO a ver si llega algo
                 print("Ya no quedan trabajos pendientes")
-                time.sleep(self.tiempo_espera)
-        
+                if Ejecutor.cuando_no_haya_mas_para:
+                    break
+                else:
+                    time.sleep(self.tiempo_espera)
+    
+    @classmethod
+    def noEspereisMas(cls):
+        Ejecutor.cuando_no_haya_mas_para=True
