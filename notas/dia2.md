@@ -182,6 +182,20 @@ El poder tener versiones distintas de librarias que usemos en distintos programa
 
 Entorno aislado donde ejecutar procesos dentro de un SO Linux.
 
+Entorno aislado:
+    - Su propia conf de red
+    - Su propio sistema de archivos (HDD, FS)
+    - Su propia conf (variables de entorno)
+    - Limitación en acceso al HW del host
+
+Docker for windows: |           (hyperv < wsl2)
+Docker for mac:     | MV Linux 
+
+Los contenedores se crean desde una imágen de contenedor. 
+Las descargamos desde un registry de repositorios de imagenes de contenedor: 
+- docker hub
+- quay.io           < Redhat
+
 ### VirtualEnv
 
 Entorno (carpeta) donde tengo unas librerias asociadas a ese entorno
@@ -208,3 +222,102 @@ App1 + App2 + App3      Problema: dependencias incompatibles
 ------------------              Perdida de performance
      Maquina                    Follon, complejidad
 
+
+ App1 | App2 + App3             Su propia conf de red
+------------------              Su propio sistema de archivos (HDD, FS)
+ C1   |  C2                     Su propia conf (variables de entorno)
+------------------              Limitación en acceso al HW del host
+Gestor de contenedores: docker + podman + crio + containerd
+------------------              Estandarizado: OpenContainerInitiative (Docker)
+    SO Linux             
+------------------          
+    Maquina                
+
+
+
+Kernel Linux
+Ubuntu:
+    bash
+    sh
+    cd 
+    cat
+    tail
+    touch
+    apt
+    apt-get
+
+Fedora:
+    bash
+    sh
+    cd 
+    cat
+    tail
+    touch
+    rpm
+    yum
+    dnf
+
+Alpine:
+    sh
+    cd 
+    cat
+    tail
+    touch
+
+# Trabajando con docker
+
+docker [TIPO_OBJETO] [VERBO] <args>
+
+docker image pull python:3.6.4                      <> docker pull python:3.6.4
+docker image list                                   <> docker images
+
+docker container create --name mipython python:3.6.4
+docker container list --all                         <> docker ps --all
+
+docker start mipython
+docker stop mipython
+
+docker container rm mypython -f                       <> docker rm mipython
+
+docker container create --name mipython -v /home/ubuntu/environment/curso:/curso python:3.6.4 sh -c "sleep 3600"
+
+docker run:
+    docker pull
+    docker container create
+    docker start
+    docker attach               < Vincula la salida estandar del proceso principal que corre en el contenedor
+                                    a mi terminal
+                                 Resumiendo: Me deja ver la salida del comando de python
+                                 
+    docker container rm         cuando se pare, cuando acabe
+    
+docker run --rm -v /home/ubuntu/environment/curso:/curso python:3.6.4 python3 /curso/ejercicios/ejecutores/programa.py
+
+
+# OPCION 1
+
+Creo un contenedor que tenga dentro python... y lo arranco
+    Le hago llegar mi codigo:
+        - O he PREmontado un volumen                -v
+        - O le copio dentro el codigo               docker cp
+    Ejecuto codigo:
+        docker exec miContenedorDePython python3 PROGRAMA
+
+Entorno precreado que se mantiene entre ejecuciones
+
+# OPCION 2
+
+Creo un contenedor cada vez que quiera ejecutar el comando python3:
+docker run --rm -v /home/ubuntu/environment/curso:/curso python:3.6.4 python3 /curso/ejercicios/ejecutores/programa.py
+
+Entorno creado dinámicamente que se tira al acabar de ejecutar el programa
+
+# OPCION 3
+
+Generar una imagen de contenedor que tenga dentro mi codigo                 <<<< Puede llevar algo más de tiempo
+Arrancar un nuevo contenedor que genere desde esa imagen de contenedor, con mi programa
+Entorno creado dinámicamente que se tira al acabar de ejecutar el programa
+
+Si estoy desarrollando, habitualmente opcion 1 o "2" es la que más me interesa
+
+Cuando distribuyo, la opción 3 es la guay
