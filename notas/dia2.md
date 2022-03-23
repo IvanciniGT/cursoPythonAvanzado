@@ -91,7 +91,53 @@ FIFO
 
 
 
+-O--OO-O-O-OO---------------------------main
+\--------------/ /   /  /
+\---------------/   /  /
+\------------------/  /
+\--------------------/
+
+
+self.trabajos_pendientes=[  ]
+
+if len(self.trabajos_pendientes)>0:         hilo1: True     hilo2: True
+                                            hilo1           
+    self.trabajos_pendientes.pop(0)()       hilo1: TRABAJO1 hilo2: ERROR
+    
+Semaforo
+
+2 opciones: Evitar el error
+            Capturar el error *****
+
+Exception < Impredecible: Se que puede ocurrir, pero no se cuando va a ocurrir
+
+HILO PRINCIPAL va poniendo trabajo->
+        Pool apunta trabajo y tiene su propio hilo que lo reparte Bucle
+            Pool reparte trabajo HILO
+
+
+testigo=threading.Semaphore()
+
+testigo.acquire()
+# Codigo
+testigo.release()
 
 
 
+pool ejecutores
+    cola_trabajos_pendientes 
+
+    ejecutores 
+        ejecutor1: TRABAJO1 PUF !
+        
+        
+        
+Trabajo gordo: 10 trabajos pequeños HILOS
+    Cada uno es meter algo en una BBDD
+Cuando termine cada trabajo... lo mando por correo
+    Tengo otro pool: 
+    
+    
+Promesas<
+A la promesa le puedo preguntar si está resuelta ya. Pido el valor.
 
