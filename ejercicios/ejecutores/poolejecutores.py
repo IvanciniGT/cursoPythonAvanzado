@@ -1,5 +1,6 @@
 from ejecutor import Ejecutor
 import threading
+from promesa import Promesa
 
 class PoolEjecutores:
     
@@ -19,7 +20,9 @@ class PoolEjecutores:
             self.lista_ejecutors[-1].start()
             
     def nuevoTrabajo(self, trabajo, callback=None):
-        self.trabajos_pendientes.append( (trabajo,callback) )
+        promesa=Promesa()
+        self.trabajos_pendientes.append( (trabajo, callback, promesa) )
+        return promesa
 
     def waitForPending(self):
         Ejecutor.noEspereisMas()

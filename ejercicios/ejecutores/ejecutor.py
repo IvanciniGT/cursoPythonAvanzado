@@ -1,5 +1,6 @@
 from threading import Thread
 import time
+from promesa import Estado
 
 class Ejecutor (Thread):
     
@@ -16,11 +17,12 @@ class Ejecutor (Thread):
         while True:
             proximoTrabajo=None
             funcionCallback=None
+            promesa=None
             
             self.testigo.acquire()
             # Codigo conflictivo
             if len(self.trabajos_pendientes)>0:
-                proximoTrabajo,funcionCallback=self.trabajos_pendientes.pop(0)
+                proximoTrabajo,funcionCallback, promesa=self.trabajos_pendientes.pop(0)
             self.testigo.release()
             
             # miro si hay algun trabajo pendiente en la cola
@@ -34,9 +36,13 @@ class Ejecutor (Thread):
                         funcionCallback(valor_devuelto)
                     print("Soy el ejecutor "+ self.nombre +" y acabo el trabajo")
                     print("Todo bien")
+                    promesa.valor=valor_devuelto
+                    promesa.estado=Estado.RESUELTA_CORRECTAMENTE
                 except Exception as error:
                     # Código que se ejecuta si hay error
-                    print("Soy el ejecutor "+ self.nombre +" y hay un problema con un trabajo " + error)
+                    print("Soy el ejecutor "+ self.nombre +" y hay un problema con un trabajo " + str(error))
+                    promesa.estado=Estado.RESUELTA_CON_ERROR
+                    promesa.error=error
                 else:
                     # Código que se ejecuta si exito, si no hay error
                     print("Todo bien")

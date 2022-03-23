@@ -141,3 +141,70 @@ Cuando termine cada trabajo... lo mando por correo
 Promesas<
 A la promesa le puedo preguntar si está resuelta ya. Pido el valor.
 
+
+
+# Procesos
+
+## En ocasiones quiero que se ejecuten de forma sincrona
+
+Porque el proceso sea de diferente naturaleza (que sea otro programa diferente)
+
+## En ocasiones quiero que se ejecuten de forma asincrona
+
+
+# Podemos juntar hilos y procesos
+
+-------main------------------------------------
+            \-----Proceso sincrono--/
+            \-----Proceso sincrono--/
+            \-----Proceso sincrono--/
+            \-----Proceso sincrono--/
+            
+# pip
+
+Instalar librerias creadas por otros
+Problema al usar pip e instalar librerias creadas por otros:
+- Versiones
+
+Si tengo 5 programas y cada uno requiere de una versión de la libreria
+
+# Python 2 -> 3
+
+Algunas funciones no se invocaban mediante el signo de parentesis
+
+print "HOLA"    ->          print("HOLA")
+
+## Este problema tenemos 2 formas de resolverlo:
+
+El poder tener versiones distintas de librarias que usemos en distintos programas
+
+### Contenedores
+
+Entorno aislado donde ejecutar procesos dentro de un SO Linux.
+
+### VirtualEnv
+
+Entorno (carpeta) donde tengo unas librerias asociadas a ese entorno
+Crear un venv
+Activo o desactivo un venv
+
+
+App1 + App2 + App3      Problema: dependencias incompatibles
+------------------                si uno se vuelve loco: 100% CPU, RAM, IO
+       SO                         seguridad
+------------------
+     Maquina
+
+
+ App1 | App2 + App3
+------------------          Cada MV tiene: 
+ SO1  |  SO2                    Su propia conf de red
+------------------              Su propio sistema de archivos (HDD, FS)
+ MV1  |  MV2                    Su propia conf (variables de entorno)
+------------------              Limitación en acceso al HW del host
+    hypervisor
+------------------          Problemas:
+       SO                       Ineficiencia + Despercicio
+------------------              Perdida de performance
+     Maquina                    Follon, complejidad
+
