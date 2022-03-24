@@ -17,7 +17,7 @@ function inicializarBBDD(){
 function migrarBBDD(){
     entorno
     flask db migrate -m 'version1'
-    flask db update
+    flask db upgrade
 }
 
 function run() {
