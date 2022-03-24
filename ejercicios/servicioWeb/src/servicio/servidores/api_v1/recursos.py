@@ -1,5 +1,5 @@
 # Esto nos permite crear servicios REST
-from flask_restful import Resource
+from flask_restful import Resource, Api
 
 # Esto nos permite acceder a los datos que me manden en una petición(request)
 from flask import request
@@ -13,6 +13,9 @@ from esquema import esquema_del_servidor                                        
 from .servidor import Servidor
 # from servicio.servidores.servidor import Servidor                                 # Alternativa de importación
 
+from ..inicializador import api_servicio_blueprint
+api_servidores_v1=Api(api_servicio_blueprint)
+
 class RecursoServidores(Resource):
     
     # esquema_del_servidor=ServidorEsquema()                                        # CASO 1
@@ -21,7 +24,10 @@ class RecursoServidores(Resource):
         codigo_respuesta=200
         json_a_devolver='{}'
         # Recuperar los servidores (todos) BBDD
+        servidores=Servidor.recuperarTodos()
         # Convertirlos a json
+        json_a_devolver = esquema_del_servidor.dump(servidores, many=True)
+        
         return json_a_devolver, codigo_respuesta
     
     def post(self):
@@ -38,6 +44,9 @@ class RecursoServidores(Resource):
         nuevo_servidor=Servidor.crearDesdeJSON(datos_servidor)
 
         # TODO: Crear un objeto de tipo Servidor -> BBDD
+        nuevo_servidor.guardar()
+        
         json_a_devolver = esquema_del_servidor.dump(nuevo_servidor)
         return json_a_devolver, codigo_respuesta
-    
+
+api_servidores_v1.add_resource(RecursoServidores, '/api/v1/servidores')
