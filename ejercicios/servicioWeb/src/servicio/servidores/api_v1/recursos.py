@@ -20,7 +20,7 @@ class RecursoServidores(Resource):
     # esquema_del_servidor=ServidorEsquema()                                        # CASO 1
     
     def get(self):
-        codigo_respuesta=200
+        codigo_respuesta=201
         json_a_devolver='{}'
         # Recuperar los servidores (todos) BBDD
         servidores=Servidor.recuperarTodos()
@@ -38,7 +38,7 @@ class RecursoServidores(Resource):
         # Filtrarlo/Validarlo de acuerdo al esquema ServidorEsquema
         datos_servidor=esquema_del_servidor.load(datos_recibidos)                   # CASO 2 y CASO 3
         # RecursoServidores.esquema_del_servidor.load(datos_recibidos)              # CASO 1
-        
+        # Revisar que el objeto no existe ya... Si existe error 40X
         # Crear un objeto de tipo Servidor
         nuevo_servidor=Servidor.crearDesdeJSON(datos_servidor)
 

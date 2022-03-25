@@ -21,7 +21,7 @@ class Servidor(ObjetoPersistente,base_datos.Model):
     def __init__(self, nombre, ip, descripcion=None, estado=False):
         self.nombre=nombre
         self.ip=ip
-        self.descripcion = descripcion if descripcion is None else nombre
+        self.descripcion = descripcion if descripcion is not None else nombre
         self.estado=estado
     
     @staticmethod
