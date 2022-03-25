@@ -5,16 +5,15 @@ from flask_restful import Resource, Api
 from flask import request
 
 # Importamos los esquemas para lvalidar/generar los JSON
-from esquema import esquema_del_servidor                                            # CASO 3
+from .esquema import esquema_del_servidor                                            # CASO 3
 # from esquemas import ServidorEsquema                                              # CASO 1 y CASO 2
 # El caso1, me permitiría usar esta instancia en otras clases o codigos que crease
 # esquema_del_servidor=ServidorEsquema()                                            # CASO 2
 
-from .servidor import Servidor
+from ..servidor import Servidor
 # from servicio.servidores.servidor import Servidor                                 # Alternativa de importación
 
-from ..inicializador import api_servicio_blueprint
-api_servidores_v1=Api(api_servicio_blueprint)
+#from ...inicializador import api_servicio_blueprint
 
 class RecursoServidores(Resource):
     
@@ -49,4 +48,6 @@ class RecursoServidores(Resource):
         json_a_devolver = esquema_del_servidor.dump(nuevo_servidor)
         return json_a_devolver, codigo_respuesta
 
-api_servidores_v1.add_resource(RecursoServidores, '/api/v1/servidores')
+def crearAPI(blueprint) :     
+    api_servidores_v1=Api(blueprint)
+    api_servidores_v1.add_resource(RecursoServidores, '/api/v1/servidores')

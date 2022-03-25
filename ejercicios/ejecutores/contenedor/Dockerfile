@@ -8,7 +8,7 @@ COPY ./*.py $CARPETA/
 
 WORKDIR $CARPETA
 
-ENTRYPOINT ["/bin/sh","-c","python3"]
-CMD [ "$PROGRAMA "]
+ENTRYPOINT ["/bin/sh", "-c"]
+CMD ["python3 $PROGRAMA"]
 
 LABEL maintainter="Ivan Osuna <ivan.osuna.ayuste@gmail.com>"

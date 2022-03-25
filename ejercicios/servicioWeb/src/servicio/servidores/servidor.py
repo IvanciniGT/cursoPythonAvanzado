@@ -7,7 +7,7 @@ from servicio.inicializador import base_datos
 # IP
 # Activo
 
-class Servidor(ObjetoPersistente):
+class Servidor(ObjetoPersistente,base_datos.Model):
     
     # Definiremos unas variables de CLASE.
     # Estas variables serán utilizadas por SWLAchemy para generar un modlo de BBDD adecuado (tabla) 
@@ -16,7 +16,7 @@ class Servidor(ObjetoPersistente):
     nombre      = base_datos.Column(base_datos.String)
     ip          = base_datos.Column(base_datos.String)
     descripcion = base_datos.Column(base_datos.String)
-    estado      = base_datos.Column(base_datos.Bool)
+    estado      = base_datos.Column(base_datos.Boolean)
     
     def __init__(self, nombre, ip, descripcion=None, estado=False):
         self.nombre=nombre

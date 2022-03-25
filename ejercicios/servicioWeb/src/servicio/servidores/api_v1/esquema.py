@@ -3,7 +3,7 @@ from marshmallow import fields
 # 2 carpetas porque pongo 2 puntos
 # Si fuera 3 carpetas, pondría 3 puntos
 
-from ..inicializador import ma        # Ruta relativa, referida a mi ubicación actual
+from ...inicializador import ma        # Ruta relativa, referida a mi ubicación actual
 #from servicio.inicializador import ma # Ruta absoluta al fichero, referida a nuestra jerarquia de modulos
 
 # La palabra esquema hace referencia a un JSON Schema 

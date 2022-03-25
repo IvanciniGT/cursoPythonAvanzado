@@ -1,6 +1,6 @@
 from servicio.inicializador import base_datos
 
-class ObjetoPersistente(base_datos.Model):
+class ObjetoPersistente():
 
     def guardar(self):
         # SQLAlchemy que lo guarde
